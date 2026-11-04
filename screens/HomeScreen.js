@@ -1,13 +1,33 @@
 import { Text, ScrollView } from "react-native";
-import { Card } from 'react-native-paper';
+import { Card, ActivityIndicator } from 'react-native-paper';
+import { useState, useEffect } from 'react';
 
+
+const EVENT_FETCH_URL = 'https://tafeshaun.github.io/elevate-data/events.json';
+const timeoutDuration = 2000;
 
 export default function HomeScreen({ navigation }){
+
+    const [eventList, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch(EVENT_FETCH_URL)
+            .then(response => response.json())
+            .then(data => {
+                setTimeout(() => {
+                    setEvents(data);
+                    setLoading(false);
+                }, timeoutDuration);
+            })
+            .catch(error => console.log(error))
+    }, []);
+
     return (
         <ScrollView>
-            
             <Text>Home Screen</Text>
-            {MOCKITEMS.map(item => (
+            {loading && <ActivityIndicator animating={true} size={200}/>}
+            {eventList.map(item => (
                 <Card
                     key={item.id}
                     onPress={() => navigation.navigate("EventDetailsScreen", {item})}
@@ -23,48 +43,3 @@ export default function HomeScreen({ navigation }){
     );
 }
 
-const MOCKITEMS = [
-    {
-        id: "1", 
-        title: "Andventure Book", 
-        description: "The hero went on an adventure",
-        total: 10
-    },
-    {
-        id: "2", 
-        title: "Maths Book", 
-        description: "1 + 1 is 2",
-        total: 10
-    },
-    {
-        id: "3", 
-        title: "Sci-Fi Book", 
-        description: "The hero went to space",
-        total: 10
-    },
-    {
-        id: "4", 
-        title: "Loruem Ipsium Book", 
-        description: "I don't remember my Loruem Ipsium...Whoops",
-        total: 10
-    },
-    {
-        id: "5", 
-        title: "Cat and Dog Book", 
-        description: "A book about household pets",
-        total: 10
-    },
-    {
-        id: "6", 
-        title: "Plant Book", 
-        description: "A book about household plants",
-        total: 10
-    },
-    {
-        id: "7", 
-        title: "Movie Event", 
-        description: "Some EHC movie event placeholder",
-        total: 10
-    },
-    
-];
