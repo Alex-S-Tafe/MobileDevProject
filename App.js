@@ -22,6 +22,7 @@ function HomeStack() {
 }
 
 export default function App() {
+
   return (
 
     <PaperProvider>
