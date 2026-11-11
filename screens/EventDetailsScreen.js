@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { Card } from 'react-native-paper';
+import { Button, Card } from 'react-native-paper';
 
 
 export default function EventDetailsScreen({route, navigation}){
@@ -11,7 +11,16 @@ export default function EventDetailsScreen({route, navigation}){
             <Card>
                 <Card.Title title={item.title}/>
                 <Card.Content>
-                    <Text>{item.desciption}</Text>
+                    <Text>Date: {item.date}</Text>
+                    <Text>Starts at {item.startTime}</Text>
+                    <Text>Finishes at {item.endTime}</Text>
+                    <Text>Location: {item.location}</Text>
+                    <Text>Category: {item.category}</Text>
+                    <Text>Description: {item.description}</Text>
+                    <Text>Total Capacity: {item.capacity}</Text>
+                    <Text>Remaining spots: {item.spotsRemaining}</Text>
+                    <Text>Cancelled: {item.isCancelled? "Yes" : "No"}</Text>
+                    <Button>Register</Button>
                 </Card.Content>
             </Card>
         </View>
