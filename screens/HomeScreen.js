@@ -1,12 +1,11 @@
 import { Text, ScrollView } from "react-native";
 import { Card, ActivityIndicator } from 'react-native-paper';
 import { useState, useEffect } from 'react';
-import { getStateFromPath } from "@react-navigation/native";
-import { Loading } from "../DataHandler";
-import { EventList } from "../DataHandler";
+import { useEventData } from "../DataHandler";
 
 
 export default function HomeScreen({ navigation }){
+    const { EventList, Loading } = useEventData();
 
     return (
         

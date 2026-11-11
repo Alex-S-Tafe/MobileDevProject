@@ -1,16 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 
 
 const EVENT_FETCH_URL = 'https://tafeshaun.github.io/elevate-data/events.json';
 const timeoutDuration = 2000;
 
 
-export const [EventList, setEvents] = useState([]);
-export const [Loading, setLoading] = useState(true);
+const DataContext = createContext(null);
 
 
-export function LoadData(){
-    
+export function DataProvider({ children }){
+    const [EventList, setEvents] = useState([]);
+    const [Loading, setLoading] = useState(true);
     
     useEffect(() => {
         fetch(EVENT_FETCH_URL)
@@ -21,6 +21,19 @@ export function LoadData(){
                     setLoading(false);
                 }, timeoutDuration);
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error);
+                setLoading(false);
+            })
     }, []);
+
+    return (
+        <DataContext.Provider value={{ EventList, Loading }}>
+            { children }
+        </DataContext.Provider>
+    );
+}
+
+export function useEventData(){
+    return useContext(DataContext);
 }

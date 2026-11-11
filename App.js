@@ -10,7 +10,7 @@ import HomeScreen from './screens/HomeScreen';
 import EventsScreen from './screens/EventsScreen'
 import SettingsScreen from './screens/SettingsScreen';
 
-import { LoadData } from './DataHandler';
+import { DataProvider } from './DataHandler';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -27,20 +27,18 @@ function HomeStack() {
 }
 
 export default function App() {
-  LoadData();
   
-
   return (
-
-    <PaperProvider>
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen  name="Home" component={HomeStack}/>
-          <Tab.Screen name="Events" component={EventsScreen}/>
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
-    
+    <DataProvider>
+      <PaperProvider>
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen  name="Home" component={HomeStack}/>
+            <Tab.Screen name="Events" component={EventsScreen}/>
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </DataProvider>
   );
 }
 
