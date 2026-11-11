@@ -20,8 +20,10 @@ export default function EventDetailsScreen({route, navigation}){
                     <Text>Total Capacity: {item.capacity}</Text>
                     <Text>Remaining spots: {item.spotsRemaining}</Text>
                     <Text>Cancelled: {item.isCancelled? "Yes" : "No"}</Text>
-                    <Button>Register</Button>
                 </Card.Content>
+                <Text>{item.startTime} - {item.endTime} - {item.location}</Text>
+                <Text>Can of Pringles</Text>
+                <Button>Register</Button>
             </Card>
         </View>
     );
