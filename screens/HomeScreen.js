@@ -1,13 +1,15 @@
 import { Text, ScrollView } from "react-native";
-import { Card, ActivityIndicator, Button, TextInput, Chip } from 'react-native-paper';
+import { Card, ActivityIndicator, Button, TextInput, Chip, Searchbar} from 'react-native-paper';
 import { useState, useEffect } from 'react';
 import { useEventData } from "../DataHandler";
 
 
 export default function HomeScreen({ navigation }){
-    const { EventList, Loading } = useEventData();
+    const { EventList, Loading, FilteredEvents, setFilteredEvents } = useEventData();
     const [selectedChips, setSelectedChips] = useState([]);
+    const [searchText, setSearchText] = useState("");
 
+    
     return (
         
         <ScrollView>
@@ -18,11 +20,14 @@ export default function HomeScreen({ navigation }){
                     <Button>View Today's Events</Button>
                 </Card.Content>
             </Card>
-            <TextInput placeholder="Search events..."/>
-            <Chip name="Chip1" onPress={() => {toggleChip(name)}} selected={selectedChips.includes(name)} selectedColor={selectedChips.includes(name)? "#FF0000" : "#00FF00"}>ChipTest</Chip>
+            <Searchbar placeholder="Search..."
+            onChangeText={setSearchText}
+            value={searchText}
+            />
+            <Chip name="Chip1" onPress={() => {toggleChip(name)}} selected={selectedChips.includes(name)} selectedColor={selectedChips.includes(name)? "#FF0000" : "#0000FF"}>ChipTest</Chip>
             <Text>Showing: CRITERIA - RESULT COUNT</Text>
             {Loading && <ActivityIndicator animating={true} size={200}/>}
-            {EventList.map(item => (
+            {FilteredEvents.map(item => (
                 <Card
                     key={item.id}
                     onPress={() => navigation.navigate("EventDetailsScreen", {item})}
@@ -40,13 +45,27 @@ export default function HomeScreen({ navigation }){
     );
 
     function toggleChip(name){
-    if (selectedChips.includes(name)) {
-        setSelectedChips(selectedChips.filter(c => c !== name));
-    } else {
-        setSelectedChips([...selectedChips, name]);
+        if (selectedChips.includes(name)) {
+            setSelectedChips(selectedChips.filter(c => c !== name));
+        } else {
+            setSelectedChips([...selectedChips, name]);
+        }
+    }
+
+    function filterEvents(txt){
+        console.log("Search changed");
+        let filteredEvents = [];
+        setSearchText(txt);
+        EventList.map(item => {
+            if (item.title.includes(searchText)){
+                filteredEvents.push(item);
+            }
+        });
+        setFilteredEvents(filteredEvents);
     }
 }
-}
+
+
 
 
 
