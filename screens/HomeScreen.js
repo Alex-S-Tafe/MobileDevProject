@@ -21,7 +21,7 @@ export default function HomeScreen({ navigation }){
                 </Card.Content>
             </Card>
             <Searchbar placeholder="Search..."
-            onChangeText={setSearchText}
+            onChangeText={filterEvents}
             value={searchText}
             />
             <Chip name="Chip1" onPress={() => {toggleChip(name)}} selected={selectedChips.includes(name)} selectedColor={selectedChips.includes(name)? "#FF0000" : "#0000FF"}>ChipTest</Chip>
