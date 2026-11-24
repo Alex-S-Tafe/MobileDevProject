@@ -1,25 +1,51 @@
 import { useState, useEffect } from 'react'
-import { ScrollView } from 'react-native'
-import { Text, TextInput, Card, Button, ActivityIndicator } from 'react-native-paper'
+import { ScrollView, View } from 'react-native'
+import { Text, TextInput, Card, Button, ActivityIndicator, Chip, Searchbar } from 'react-native-paper'
 import { useEventData } from '../DataHandler';
 
 export default function EventScreen({navigation}){
     const { EventList, Loading } = useEventData();
+    const [selectedChips, setSelectedChips] = useState([]);
+    const [searchText, setSearchText] = useState("");
+    const [dateSearchText, setDateSearchText] = useState("");
+
+    const categories = [...new Set(EventList.map(item => item.category))];
+
+    const query = searchText.trim().toLowerCase();
+    const dateQuery = dateSearchText.trim();
+    const filteredEvents = EventList.filter(item => item.title.toLowerCase().includes(query)
+        && item.date.includes(dateQuery)
+        && (selectedChips.length === 0 || selectedChips.includes(item.category)));
+    
 
     return (
         <ScrollView>
             <Card>
-                <TextInput placeholder="Search Events..."/>
-                <Text>Packet of Chips</Text>
-                <Date></Date>
-                <Button>Clear Filters Chip</Button>
+                <Searchbar placeholder="Search..."
+                    onChangeText={setSearchText}
+                    value={searchText}
+                />
+                <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, margin: 8}}>
+                    {categories.map( cat => (
+                        <Chip
+                            key={cat}
+                            onPress={() => toggleChip(cat)}
+                            selected={selectedChips.includes(cat)}
+                            selectedColor={selectedChips.includes(cat) ? "#FF0000" : "#0000FF"}
+                        >
+                            {cat}
+                        </Chip>
+                    ))}
+                </View>
+                <Text>Search date</Text>
+                <Searchbar placeholder="YYYY-MM-DD"
+                onChangeText={setDateSearchText}
+                value={dateSearchText}/>
+                <Button onClick={clearFilters()}>Clear Filters</Button>
             </Card>
-            <Text>Showing: CRITERIA - RESULTCOUNT</Text>
-            <Card>
-                <Text>Early Date - End Date</Text>
-            </Card>
+            <Text>Showing: {filteredEvents.length} / {EventList.length} events.</Text>
             {Loading && <ActivityIndicator animating={true} size={200}/>}
-            {EventList.map(item => (
+            {filteredEvents.map(item => (
                 <Card
                     key={item.id}
                     onPress={() => navigation.navigate("EventDetailsScreen", {item})}
@@ -34,4 +60,18 @@ export default function EventScreen({navigation}){
             ))}
         </ScrollView>
     )
+
+    function toggleChip(name){
+        if (selectedChips.includes(name)) {
+            setSelectedChips(selectedChips.filter(c => c !== name));
+        } else {
+            setSelectedChips([...selectedChips, name]);
+        }
+    }
+
+    function clearFilters(){
+        setSelectedChips([]);
+        setSearchText("");
+        setDateSearchText("");
+    }
 }
