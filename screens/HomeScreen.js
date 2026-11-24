@@ -1,5 +1,5 @@
-import { Text, ScrollView } from "react-native";
-import { Card, ActivityIndicator, Button, TextInput, Chip } from 'react-native-paper';
+import { Text, ScrollView, View } from "react-native";
+import { Card, ActivityIndicator, Button, Chip, Searchbar} from 'react-native-paper';
 import { useState, useEffect } from 'react';
 import { useEventData } from "../DataHandler";
 
@@ -7,7 +7,15 @@ import { useEventData } from "../DataHandler";
 export default function HomeScreen({ navigation }){
     const { EventList, Loading } = useEventData();
     const [selectedChips, setSelectedChips] = useState([]);
+    const [searchText, setSearchText] = useState("");
 
+    const categories = [...new Set(EventList.map(item => item.category))];
+
+    const query = searchText.trim().toLowerCase();
+    const filteredEvents = EventList.filter(item => item.title.toLowerCase().includes(query)
+        && (selectedChips.length === 0 || selectedChips.includes(item.category)));
+    
+    
     return (
         
         <ScrollView>
@@ -18,11 +26,25 @@ export default function HomeScreen({ navigation }){
                     <Button>View Today's Events</Button>
                 </Card.Content>
             </Card>
-            <TextInput placeholder="Search events..."/>
-            <Chip name="Chip1" onPress={() => {toggleChip(name)}} selected={selectedChips.includes(name)} selectedColor={selectedChips.includes(name)? "#FF0000" : "#00FF00"}>ChipTest</Chip>
-            <Text>Showing: CRITERIA - RESULT COUNT</Text>
+            <Searchbar placeholder="Search..."
+            onChangeText={setSearchText}
+            value={searchText}
+            />
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, margin: 8}}>
+                {categories.map( cat => (
+                    <Chip
+                        key={cat}
+                        onPress={() => toggleChip(cat)}
+                        selected={selectedChips.includes(cat)}
+                        selectedColor={selectedChips.includes(cat) ? "#FF0000" : "#0000FF"}
+                    >
+                        {cat}
+                    </Chip>
+                ))}
+            </View>
+            <Text>Showing: {filteredEvents.length} / {EventList.length} events.</Text>
             {Loading && <ActivityIndicator animating={true} size={200}/>}
-            {EventList.map(item => (
+            {filteredEvents.map(item => (
                 <Card
                     key={item.id}
                     onPress={() => navigation.navigate("EventDetailsScreen", {item})}
@@ -40,13 +62,15 @@ export default function HomeScreen({ navigation }){
     );
 
     function toggleChip(name){
-    if (selectedChips.includes(name)) {
-        setSelectedChips(selectedChips.filter(c => c !== name));
-    } else {
-        setSelectedChips([...selectedChips, name]);
+        if (selectedChips.includes(name)) {
+            setSelectedChips(selectedChips.filter(c => c !== name));
+        } else {
+            setSelectedChips([...selectedChips, name]);
+        }
     }
 }
-}
+
+
 
 
 

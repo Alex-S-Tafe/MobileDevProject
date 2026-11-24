@@ -9,8 +9,12 @@ const DataContext = createContext(null);
 
 
 export function DataProvider({ children }){
+    // App functioning
     const [EventList, setEvents] = useState([]);
     const [Loading, setLoading] = useState(true);
+
+    // App settings
+    const [NotificationsOn, setNotificationsOn] = useState(false);
     
     useEffect(() => {
         fetch(EVENT_FETCH_URL)
@@ -27,8 +31,9 @@ export function DataProvider({ children }){
             })
     }, []);
 
+
     return (
-        <DataContext.Provider value={{ EventList, Loading }}>
+        <DataContext.Provider value={{ EventList, Loading, NotificationsOn }}>
             { children }
         </DataContext.Provider>
     );

@@ -26,6 +26,15 @@ function HomeStack() {
   );
 }
 
+function EventsStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="EventsScreen" component={EventsScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="EventDetailsScreen" component={EventDetailsScreen}/>
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   
   return (
@@ -34,7 +43,8 @@ export default function App() {
         <NavigationContainer>
           <Tab.Navigator>
             <Tab.Screen  name="Home" component={HomeStack}/>
-            <Tab.Screen name="Events" component={EventsScreen}/>
+            <Tab.Screen name="Events" component={EventsStack}/>
+            <Tab.Screen name="Settings" component={SettingsScreen}/>
           </Tab.Navigator>
         </NavigationContainer>
       </PaperProvider>

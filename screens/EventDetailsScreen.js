@@ -23,8 +23,14 @@ export default function EventDetailsScreen({route, navigation}){
                 </Card.Content>
                 <Text>{item.startTime} - {item.endTime} - {item.location}</Text>
                 <Text>Can of Pringles</Text>
-                <Button>Register</Button>
+                
             </Card>
+            <Button
+                onClick="{() => console.log('Registered')}"
+                mode="contained"
+                >
+                    Register for {item.title}
+            </Button>
         </View>
     );
 }
