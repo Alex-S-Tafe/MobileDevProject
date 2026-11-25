@@ -1,4 +1,4 @@
-import { Text, ScrollView, View } from "react-native";
+import { Text, ScrollView, View, Image } from "react-native";
 import { Card, ActivityIndicator, Button, Chip, Searchbar} from 'react-native-paper';
 import { useState, useEffect } from 'react';
 import { useEventData } from "../DataHandler";
@@ -21,6 +21,7 @@ export default function HomeScreen({ navigation }){
     return (
         
         <ScrollView style={styles.scrollview}>
+            
             <Card mode="contained" style={styles.card}>
                 <Card.Title title="Welcome"/>
                 <Card.Content>

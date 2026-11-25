@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { PaperProvider } from 'react-native-paper';
 import { useState, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -19,10 +19,10 @@ const Stack = createNativeStackNavigator();
 
 function HomeStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
-      <Stack.Screen name="EventDetailsScreen" component={EventDetailsScreen}/>
-    </Stack.Navigator>
+      <Stack.Navigator>
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="EventDetailsScreen" component={EventDetailsScreen}/>
+      </Stack.Navigator>
   );
 }
 
@@ -40,6 +40,8 @@ export default function App() {
   return (
     <DataProvider>
       <PaperProvider>
+        <Image source={require('./assets/Logo.jpg')}
+          />
         <NavigationContainer>
           <Tab.Navigator>
             <Tab.Screen  name="Home" component={HomeStack}/>
