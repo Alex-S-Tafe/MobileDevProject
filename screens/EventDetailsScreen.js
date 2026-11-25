@@ -22,11 +22,10 @@ export default function EventDetailsScreen({route, navigation}){
                     <Text>Cancelled: {item.isCancelled? "Yes" : "No"}</Text>
                 </Card.Content>
                 <Text>{item.startTime} - {item.endTime} - {item.location}</Text>
-                <Text>Can of Pringles</Text>
                 
             </Card>
             <Button
-                onClick="{() => console.log('Registered')}"
+                onPress={() => alert(`Registered for ${item.title} on ${item.date}`)}
                 mode="contained"
                 >
                     Register for {item.title}

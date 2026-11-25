@@ -23,7 +23,7 @@ export default function HomeScreen({ navigation }){
                 <Card.Title title="Welcome"/>
                 <Card.Content>
                     <Text>Find and register for community events</Text>
-                    <Button>View Today's Events</Button>
+                    <Button onPress={() => {}}>View Today's Events</Button>
                 </Card.Content>
             </Card>
             <Searchbar placeholder="Search..."

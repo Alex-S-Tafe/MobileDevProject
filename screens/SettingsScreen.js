@@ -2,11 +2,11 @@ import { Text, View } from 'react-native';
 import { Button, Card, List, TextInput, Divider, Switch } from 'react-native-paper';
 import { useContext, useState } from 'react';
 
-import { DataProvider } from '../DataHandler';
+import { DataProvider, useEventData } from '../DataHandler';
 
 
 export default function SettingsScreen({ navigation }){
-    
+    const { NotificationsOn, setNotificationsOn} = useEventData();
 
     return (
         <View>
@@ -21,6 +21,12 @@ export default function SettingsScreen({ navigation }){
             
             <Button mode="contained" onPress={() => {}}>Reset</Button>
             <Divider />
+            <List.Item title="Notifications"
+                right={() => (
+                    <Switch value={NotificationsOn}
+                    onValueChange={() => {setNotificationsOn(!NotificationsOn)}}/>
+                )}
+            />
             
         </View>
     );

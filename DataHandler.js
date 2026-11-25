@@ -33,7 +33,7 @@ export function DataProvider({ children }){
 
 
     return (
-        <DataContext.Provider value={{ EventList, Loading, NotificationsOn }}>
+        <DataContext.Provider value={{ EventList, Loading, NotificationsOn, setNotificationsOn }}>
             { children }
         </DataContext.Provider>
     );
