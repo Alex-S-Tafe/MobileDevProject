@@ -14,11 +14,11 @@ export function DataProvider({ children }){
     // App functioning
     const [EventList, setEvents] = useState([]);
     const [Loading, setLoading] = useState(true);
-    const [SelectedChipColor, setSelectedChipColor] = useState("#FFEA00");
 
 
     // App settings
     const [NotificationsOn, setNotificationsOn] = useState(false);
+    const [SelectedChipColor, setSelectedChipColor] = useState("#FFEA00");
 
     // App styling
     const styles = StyleSheet.create({

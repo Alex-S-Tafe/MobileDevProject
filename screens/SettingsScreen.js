@@ -7,6 +7,7 @@ import { DataProvider, useEventData } from '../DataHandler';
 
 export default function SettingsScreen({ navigation }){
     const { NotificationsOn, setNotificationsOn, styles, SelectedChipColor, setSelectedChipColor} = useEventData();
+    const [chipColorDraft, setChipColorDraft] = useState(SelectedChipColor);
 
     return (
         <View style={styles.scrollview}>
@@ -20,10 +21,12 @@ export default function SettingsScreen({ navigation }){
             <List.Item title="Selected Chip Colour"
                 right={() => (
                     <TextInput 
-                    onChangeText={(text) => {setSelectedChipColor(text)}}
-                    value={SelectedChipColor}
+                    onChangeText={(text) => {setChipColorDraft(text)}}
+                    value={chipColorDraft}
+                    onBlur={() => changeChipColour(chipColorDraft)}
+                    onSubmitEditing={() => changeChipColour(chipColorDraft)}
                     keyboardType="default"
-                    style={{width: 100}}/>
+                    style={{width: 110}}/>
                 )}
                 style={styles.defaultpadding}
             />
@@ -36,5 +39,22 @@ export default function SettingsScreen({ navigation }){
             
         </View>
     );
+
+    // TODO: handle non-hexadecimal character crash
+    function changeChipColour(value){
+        let text = value;
+        if (text.length === 0)
+        {
+            text = "#";
+        }
+        while (text.length < 7) {
+            text += "0";
+        }
+        if (value.length > 7){
+            text = value.slice(0, 7);
+        }
+        setChipColorDraft(text);
+        setSelectedChipColor(text);
+    }
 }
 
