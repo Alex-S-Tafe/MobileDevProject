@@ -18,10 +18,11 @@ Show today’s events
 Handling event registration
 
 ## Tech Stack
-React Native
+React, React Native, React Paper
 Expo
 Figma
 Git
+GIMP
 
 ## Project Status
-Planning phase
+MVP built, ready for marking (provided I ignore the perfectionist part of my brain, perfectionism is secretly procrastination)
