@@ -6,10 +6,17 @@ import { DataProvider, useEventData } from '../DataHandler';
 
 
 export default function SettingsScreen({ navigation }){
-    const { NotificationsOn, setNotificationsOn} = useEventData();
+    const { NotificationsOn, setNotificationsOn, styles} = useEventData();
 
     return (
-        <View>
+        <View style={styles.scrollview}>
+            <List.Item title="Notifications"
+                right={() => (
+                    <Switch value={NotificationsOn}
+                    onValueChange={() => {setNotificationsOn(!NotificationsOn)}}/>
+                )}
+                style={styles.defaultpadding}
+            />
             <List.Item title="settings item"
                 right={() => (
                     <TextInput value="0"
@@ -17,16 +24,14 @@ export default function SettingsScreen({ navigation }){
                     keyboardType="numeric"
                     style={{width: 80}}/>
                 )}
+                style={styles.defaultpadding}
             />
+            <Divider style={{margin: 5}}/>
             
-            <Button mode="contained" onPress={() => {}}>Reset</Button>
-            <Divider />
-            <List.Item title="Notifications"
-                right={() => (
-                    <Switch value={NotificationsOn}
-                    onValueChange={() => {setNotificationsOn(!NotificationsOn)}}/>
-                )}
-            />
+            <Button mode="contained" onPress={() => {}}
+                style={styles.defaultmargin}
+                >Reset</Button>
+            
             
         </View>
     );

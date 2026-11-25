@@ -1,4 +1,6 @@
 import { useState, useEffect, createContext, useContext } from "react";
+import { Card } from "react-native-paper";
+import { StyleSheet } from "react-native";
 
 
 const EVENT_FETCH_URL = 'https://tafeshaun.github.io/elevate-data/events.json';
@@ -15,6 +17,28 @@ export function DataProvider({ children }){
 
     // App settings
     const [NotificationsOn, setNotificationsOn] = useState(false);
+
+    // App styling
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            backgroundColor: '#fff',
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        card: {
+            margin: 5,
+        },
+        scrollview: {
+            margin: 5,
+        },
+        defaultpadding: {
+            padding: 5,
+        },
+        defaultmargin: {
+            margin: 5,
+        }
+    });
     
     useEffect(() => {
         fetch(EVENT_FETCH_URL)
@@ -33,7 +57,7 @@ export function DataProvider({ children }){
 
 
     return (
-        <DataContext.Provider value={{ EventList, Loading, NotificationsOn, setNotificationsOn }}>
+        <DataContext.Provider value={{ EventList, Loading, NotificationsOn, setNotificationsOn, styles }}>
             { children }
         </DataContext.Provider>
     );

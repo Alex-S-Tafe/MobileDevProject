@@ -4,7 +4,7 @@ import { Text, TextInput, Card, Button, ActivityIndicator, Chip, Searchbar } fro
 import { useEventData } from '../DataHandler';
 
 export default function EventScreen({navigation}){
-    const { EventList, Loading } = useEventData();
+    const { EventList, Loading, styles } = useEventData();
     const [selectedChips, setSelectedChips] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [dateSearchText, setDateSearchText] = useState("");
@@ -19,8 +19,8 @@ export default function EventScreen({navigation}){
     
 
     return (
-        <ScrollView>
-            <Card>
+        <ScrollView style={styles.scrollview}>
+            <Card style={styles.card}>
                 <Searchbar placeholder="Search..."
                     onChangeText={setSearchText}
                     value={searchText}
@@ -49,6 +49,8 @@ export default function EventScreen({navigation}){
                 <Card
                     key={item.id}
                     onPress={() => navigation.navigate("EventDetailsScreen", {item})}
+                    mode="contained"
+                    style={styles.card}
                 >
                     <Card.Title title={item.title}/>
                     <Card.Content>

@@ -5,7 +5,7 @@ import { useEventData } from "../DataHandler";
 
 
 export default function HomeScreen({ navigation }){
-    const { EventList, Loading } = useEventData();
+    const { EventList, Loading, styles } = useEventData();
     const [selectedChips, setSelectedChips] = useState([]);
     const [searchText, setSearchText] = useState("");
 
@@ -18,8 +18,8 @@ export default function HomeScreen({ navigation }){
     
     return (
         
-        <ScrollView>
-            <Card>
+        <ScrollView style={styles.scrollview}>
+            <Card mode="contained" style={styles.card}>
                 <Card.Title title="Welcome"/>
                 <Card.Content>
                     <Text>Find and register for community events</Text>
@@ -48,6 +48,8 @@ export default function HomeScreen({ navigation }){
                 <Card
                     key={item.id}
                     onPress={() => navigation.navigate("EventDetailsScreen", {item})}
+                    mode="contained"
+                    style={styles.card}
                 >
                     <Card.Title title={item.title}/>
                     <Card.Content>
