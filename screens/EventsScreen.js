@@ -41,7 +41,9 @@ export default function EventScreen({navigation}){
                 <Searchbar placeholder="YYYY-MM-DD"
                 onChangeText={setDateSearchText}
                 value={dateSearchText}/>
-                <Button onPress={() => clearFilters()}>Clear Filters</Button>
+                <Button onPress={() => clearFilters()}
+                    mode="contained"
+                    >Clear Filters</Button>
             </Card>
             <Text>Showing: {filteredEvents.length} / {EventList.length} events.</Text>
             {Loading && <ActivityIndicator animating={true} size={200}/>}

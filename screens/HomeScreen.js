@@ -8,11 +8,13 @@ export default function HomeScreen({ navigation }){
     const { EventList, Loading, styles } = useEventData();
     const [selectedChips, setSelectedChips] = useState([]);
     const [searchText, setSearchText] = useState("");
+    const [todaysDate, setTodaysDate] = useState("");
 
     const categories = [...new Set(EventList.map(item => item.category))];
 
     const query = searchText.trim().toLowerCase();
     const filteredEvents = EventList.filter(item => item.title.toLowerCase().includes(query)
+        && item.date.includes(todaysDate)
         && (selectedChips.length === 0 || selectedChips.includes(item.category)));
     
     
@@ -23,13 +25,17 @@ export default function HomeScreen({ navigation }){
                 <Card.Title title="Welcome"/>
                 <Card.Content>
                     <Text>Find and register for community events</Text>
-                    <Button onPress={() => {}}>View Today's Events</Button>
+                    <Button mode="contained" 
+                        onPress={() => {searchToday()}}
+                        style={styles.defaultmargin}
+                        >View Today's Events</Button>
                 </Card.Content>
             </Card>
             <Searchbar placeholder="Search..."
             onChangeText={setSearchText}
             value={searchText}
             />
+            
             <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 8, margin: 8}}>
                 {categories.map( cat => (
                     <Chip
@@ -42,6 +48,10 @@ export default function HomeScreen({ navigation }){
                     </Chip>
                 ))}
             </View>
+            <Button mode="contained" 
+                onPress={() => {clearFilters()}}
+                style={styles.defaultmargin}
+                >Clear filters</Button>
             <Text>Showing: {filteredEvents.length} / {EventList.length} events.</Text>
             {Loading && <ActivityIndicator animating={true} size={200}/>}
             {filteredEvents.map(item => (
@@ -69,6 +79,20 @@ export default function HomeScreen({ navigation }){
         } else {
             setSelectedChips([...selectedChips, name]);
         }
+    }
+
+    function searchToday(){
+        let date = new Date();
+        let dateText = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        // uncomment following line to test - it works
+        //dateText = "2025-08-15";
+        setTodaysDate(dateText);
+    }
+
+    function clearFilters(){
+        setTodaysDate("");
+        setSelectedChips([]);
+        setSearchText("");
     }
 }
 
