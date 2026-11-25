@@ -19,8 +19,9 @@ export default function SettingsScreen({ navigation }){
             />
             <List.Item title="Selected Chip Colour"
                 right={() => (
-                    <TextInput value={SelectedChipColor}
-                    onChangeText={() => {setSelectedChipColor}}
+                    <TextInput 
+                    onChangeText={(text) => {setSelectedChipColor(text)}}
+                    value={SelectedChipColor}
                     keyboardType="default"
                     style={{width: 100}}/>
                 )}
