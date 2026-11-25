@@ -4,7 +4,7 @@ import { Text, TextInput, Card, Button, ActivityIndicator, Chip, Searchbar } fro
 import { useEventData } from '../DataHandler';
 
 export default function EventScreen({navigation}){
-    const { EventList, Loading, styles } = useEventData();
+    const { EventList, Loading, styles, SelectedChipColor } = useEventData();
     const [selectedChips, setSelectedChips] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [dateSearchText, setDateSearchText] = useState("");
@@ -31,7 +31,7 @@ export default function EventScreen({navigation}){
                             key={cat}
                             onPress={() => toggleChip(cat)}
                             selected={selectedChips.includes(cat)}
-                            selectedColor={selectedChips.includes(cat) ? "#FF0000" : "#0000FF"}
+                            selectedColor={selectedChips.includes(cat) ? `${SelectedChipColor}` : "#0000FF"}
                         >
                             {cat}
                         </Chip>

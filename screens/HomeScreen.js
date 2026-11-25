@@ -5,7 +5,7 @@ import { useEventData } from "../DataHandler";
 
 
 export default function HomeScreen({ navigation }){
-    const { EventList, Loading, styles } = useEventData();
+    const { EventList, Loading, styles, SelectedChipColor } = useEventData();
     const [selectedChips, setSelectedChips] = useState([]);
     const [searchText, setSearchText] = useState("");
     const [todaysDate, setTodaysDate] = useState("");
@@ -42,7 +42,7 @@ export default function HomeScreen({ navigation }){
                         key={cat}
                         onPress={() => toggleChip(cat)}
                         selected={selectedChips.includes(cat)}
-                        selectedColor={selectedChips.includes(cat) ? "#FF0000" : "#0000FF"}
+                        selectedColor={selectedChips.includes(cat) ? `${SelectedChipColor}` : "#0000FF"}
                     >
                         {cat}
                     </Chip>

@@ -6,7 +6,7 @@ import { DataProvider, useEventData } from '../DataHandler';
 
 
 export default function SettingsScreen({ navigation }){
-    const { NotificationsOn, setNotificationsOn, styles} = useEventData();
+    const { NotificationsOn, setNotificationsOn, styles, SelectedChipColor, setSelectedChipColor} = useEventData();
 
     return (
         <View style={styles.scrollview}>
@@ -17,18 +17,18 @@ export default function SettingsScreen({ navigation }){
                 )}
                 style={styles.defaultpadding}
             />
-            <List.Item title="settings item"
+            <List.Item title="Selected Chip Colour"
                 right={() => (
-                    <TextInput value="0"
-                    onChangeText={{}}
-                    keyboardType="numeric"
-                    style={{width: 80}}/>
+                    <TextInput value={SelectedChipColor}
+                    onChangeText={() => {setSelectedChipColor}}
+                    keyboardType="default"
+                    style={{width: 100}}/>
                 )}
                 style={styles.defaultpadding}
             />
             <Divider style={{margin: 5}}/>
             
-            <Button mode="contained" onPress={() => {}}
+            <Button mode="contained" onPress={() => {setSelectedChipColor("#FFEA00")}}
                 style={styles.defaultmargin}
                 >Reset</Button>
             

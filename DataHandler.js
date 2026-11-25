@@ -14,6 +14,8 @@ export function DataProvider({ children }){
     // App functioning
     const [EventList, setEvents] = useState([]);
     const [Loading, setLoading] = useState(true);
+    const [SelectedChipColor, setSelectedChipColor] = useState("#FFEA00");
+
 
     // App settings
     const [NotificationsOn, setNotificationsOn] = useState(false);
@@ -37,7 +39,7 @@ export function DataProvider({ children }){
         },
         defaultmargin: {
             margin: 5,
-        }
+        },
     });
     
     useEffect(() => {
@@ -57,7 +59,7 @@ export function DataProvider({ children }){
 
 
     return (
-        <DataContext.Provider value={{ EventList, Loading, NotificationsOn, setNotificationsOn, styles }}>
+        <DataContext.Provider value={{ EventList, Loading, NotificationsOn, setNotificationsOn, styles, SelectedChipColor, setSelectedChipColor }}>
             { children }
         </DataContext.Provider>
     );
